@@ -1,0 +1,15 @@
+global:
+  chains: ["solana"]
+  min_liquidity_usd: 500           # minimum pool size
+  max_fdv_usd: 30000000
+  min_holders: 5                   # early entry possible
+  min_age_minutes: 1
+  max_age_minutes: 240             # first 4 hours
+  max_buy_tax_bps: 0
+  max_sell_tax_bps: 0
+  max_top1_holder_pct: 25
+  max_top5_holder_pct: 70
+  require_mint_authority_revoked: true   # ✅ safer plays only
+  min_lp_lock_ratio: 0.3           # at least 30% liquidity locked
+  min_dex_trades_5m: 2             # must have activity
+  min_volume_usd_1h: 1000          # $1k+ hourly volume

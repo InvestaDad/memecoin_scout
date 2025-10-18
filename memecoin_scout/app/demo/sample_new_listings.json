@@ -1,0 +1,155 @@
+[
+  {
+    "name": "Puppy Pepe",
+    "symbol": "PPEPE",
+    "chain": "solana",
+    "address": "So1111111111111111111111111111PPEPE",
+    "age_minutes": 45,
+    "fdv_usd": 2500000,
+    "liquidity": {
+      "usd": 82000,
+      "lp_lock_ratio": 0.91,
+      "buy_tax_bps": 0,
+      "sell_tax_bps": 0
+    },
+    "holders": {
+      "top1_pct": 6.5,
+      "top5_pct": 27.2,
+      "holder_count": 980
+    },
+    "volume": {
+      "volume_usd_5m": 18500,
+      "volume_usd_1h": 210000,
+      "trades_5m": 68,
+      "buyers_5m": 44,
+      "sellers_5m": 24
+    },
+    "social": {
+      "twitter_followers": 3800,
+      "telegram_members": 2600,
+      "x_mentions_1h": 40,
+      "website": "https://puppypepe.xyz"
+    },
+    "code_risk": {
+      "evm_contract_verified": null,
+      "sol_mint_authority_revoked": true,
+      "sol_freeze_authority_revoked": true,
+      "owner_renounced_or_timelock": true,
+      "has_blacklist_or_whitelist": false
+    },
+    "honeypot_flag": false
+  },
+  {
+    "name": "Turbo Banana",
+    "symbol": "TBANA",
+    "chain": "ethereum",
+    "address": "0x0000000000000000000000000000BANA",
+    "age_minutes": 20,
+    "fdv_usd": 12000000,
+    "liquidity": {
+      "usd": 51000,
+      "lp_lock_ratio": 0.85,
+      "buy_tax_bps": 300,
+      "sell_tax_bps": 300
+    },
+    "holders": {
+      "top1_pct": 9.8,
+      "top5_pct": 35.1,
+      "holder_count": 410
+    },
+    "volume": {
+      "volume_usd_5m": 9000,
+      "volume_usd_1h": 78000,
+      "trades_5m": 34,
+      "buyers_5m": 19,
+      "sellers_5m": 15
+    },
+    "social": {
+      "twitter_followers": 1200,
+      "telegram_members": 900,
+      "x_mentions_1h": 15,
+      "website": "https://turbobanana.fun"
+    },
+    "code_risk": {
+      "evm_contract_verified": true,
+      "owner_renounced_or_timelock": true,
+      "has_blacklist_or_whitelist": false
+    },
+    "honeypot_flag": false
+  },
+  {
+    "name": "Rugdragon",
+    "symbol": "RUGD",
+    "chain": "bsc",
+    "address": "0x0000000000000000000000000000RUGD",
+    "age_minutes": 12,
+    "fdv_usd": 800000,
+    "liquidity": {
+      "usd": 12000,
+      "lp_lock_ratio": 0.35,
+      "buy_tax_bps": 1200,
+      "sell_tax_bps": 2000
+    },
+    "holders": {
+      "top1_pct": 22.0,
+      "top5_pct": 68.0,
+      "holder_count": 65
+    },
+    "volume": {
+      "volume_usd_5m": 2000,
+      "volume_usd_1h": 6000,
+      "trades_5m": 9,
+      "buyers_5m": 3,
+      "sellers_5m": 6
+    },
+    "social": {
+      "twitter_followers": 180,
+      "telegram_members": 220,
+      "x_mentions_1h": 1
+    },
+    "code_risk": {
+      "evm_contract_verified": false,
+      "owner_renounced_or_timelock": false,
+      "has_blacklist_or_whitelist": true
+    },
+    "honeypot_flag": true
+  },
+  {
+    "name": "Cat McWhiskers",
+    "symbol": "CMW",
+    "chain": "solana",
+    "address": "So1111111111111111111111111111CMW",
+    "age_minutes": 8,
+    "fdv_usd": 1500000,
+    "liquidity": {
+      "usd": 42000,
+      "lp_lock_ratio": 0.88,
+      "buy_tax_bps": 0,
+      "sell_tax_bps": 0
+    },
+    "holders": {
+      "top1_pct": 5.0,
+      "top5_pct": 29.0,
+      "holder_count": 540
+    },
+    "volume": {
+      "volume_usd_5m": 25000,
+      "volume_usd_1h": 50000,
+      "trades_5m": 55,
+      "buyers_5m": 40,
+      "sellers_5m": 15
+    },
+    "social": {
+      "twitter_followers": 1300,
+      "telegram_members": 1100,
+      "x_mentions_1h": 22
+    },
+    "code_risk": {
+      "sol_mint_authority_revoked": false,
+      "sol_freeze_authority_revoked": true,
+      "owner_renounced_or_timelock": true,
+      "has_blacklist_or_whitelist": false
+    },
+    "honeypot_flag": false
+  }
+]

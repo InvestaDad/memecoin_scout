@@ -1,0 +1,17 @@
+global:
+  chains: ["solana"]              # still focused on Solana
+  min_liquidity_usd: 50           # catch super fresh pools (was 500)
+  max_fdv_usd: 100000000          # allow up to $100M FDV
+  min_holders: 0                  # brand new tokens okay
+  min_age_minutes: 0              # include tokens minted seconds ago
+  max_age_minutes: 480            # up to 8 hours old
+  max_buy_tax_bps: 0              # no tax coins only
+  max_sell_tax_bps: 0
+  max_top1_holder_pct: 100        # ignore whale dominance (for discovery)
+  max_top5_holder_pct: 100
+  require_contract_verified: false
+  require_owner_renounced_or_timelock: false
+  require_mint_authority_revoked: false   # disable safety
+  min_lp_lock_ratio: 0.0          # allow even unlocked LPs
+  min_dex_trades_5m: 0            # even if no trades yet
+  min_volume_usd_1h: 0            # even if 0 volume

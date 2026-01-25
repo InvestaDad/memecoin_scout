@@ -4,94 +4,107 @@
 
 <img width="1880" height="830" alt="Screenshot (188)" src="https://github.com/user-attachments/assets/eea0e16c-c407-4236-8230-aaea68a63c74" />
 
-JA Security | Web3 & DeFi Security Projects
-Memecoin Scout is a real-time scanner for newly launched Solana tokens. It monitors fresh pairs, applies configurable risk filters, scores momentum, and surfaces high-signal candidates through a lightweight dashboard.
+
+text
+# JA Security | Web3 & DeFi Security Projects
+
+**Memecoin Scout** is a real-time scanner for newly launched Solana tokens. It monitors fresh pairs, applies configurable risk filters, scores momentum, and surfaces high-signal candidates through a lightweight dashboard.
 
 The project is designed as a foundation for research, monitoring, and experimentation with live market data, and can be extended toward automated or semi-automated trading strategies.
 
-Key Capabilities
-➡ Real-time scanning of new Solana pairs via DexScreener
+---
 
-➡ Risk filtering to remove obvious rugs and low-liquidity tokens
+## Key Capabilities
 
-➡ Scoring engine combining liquidity, volume, age, holders, and momentum signals
-
-➡ Momentum detection for volume and price spikes
-
-➡ SQLite persistence for historical tracking and analysis
-
-➡ Streamlit dashboard for live exploration and filtering
-
-➡ Optional Telegram alerts for higher-scoring candidates
-
+➡ Real-time scanning of new Solana pairs via DexScreener  
+➡ Risk filtering to remove obvious rugs and low-liquidity tokens  
+➡ Scoring engine combining liquidity, volume, age, holders, and momentum signals  
+➡ Momentum detection for volume and price spikes  
+➡ SQLite persistence for historical tracking and analysis  
+➡ Streamlit dashboard for live exploration and filtering  
+➡ Optional Telegram alerts for higher-scoring candidates  
 ➡ Modular architecture designed for extensibility (auto-trading, multi-chain support)
 
-Tech Stack
+---
 
-➡ Python 3.11+
+## Tech Stack
 
-➡ Asyncio for concurrent scanning
+➡ **Python 3.11+**  
+➡ **Asyncio** for concurrent scanning  
+➡ **Streamlit** for the dashboard UI  
+➡ **SQLite** for lightweight persistence  
+➡ **Pandas** for data handling  
+➡ **DexScreener API**  
+➡ **Telegram Bot API** (optional alerts)
 
-➡ Streamlit for the dashboard UI
+---
 
-➡ SQLite for lightweight persistence
-
-➡ Pandas for data handling
-
-➡ DexScreener API
-
-➡ Telegram Bot API (optional alerts)
-
-Project Structure
+## Project Structure
 
 memecoin_scout/
 ├── app/
-│   ├── main.py              # Async scanning loop
-│   ├── filters.py           # Risk filtering logic
-│   ├── scorer.py            # Token scoring engine
-│   ├── storagedb.py         # SQLite operations
-│   └── alerting/            # Telegram notifications
-├── dashboard.py             # Streamlit dashboard
-├── utils.py                 # Helper functions and formatting
-├── config.yaml              # Filters, thresholds, API keys
-├── requirements.txt         # Python dependencies
-└── README.md                # Project documentation
-How It Works
-High-level flow:
+│ ├── main.py # Async scanning loop
+│ ├── filters.py # Risk filtering logic
+│ ├── scorer.py # Token scoring engine
+│ ├── storagedb.py # SQLite operations
+│ └── alerting/ # Telegram notifications
+├── dashboard.py # Streamlit dashboard
+├── utils.py # Helper functions and formatting
+├── config.yaml # Filters, thresholds, API keys
+├── requirements.txt # Python dependencies
+└── README.md # Project documentation
 
 text
+
+---
+
+## How It Works
+
+**High-level flow:**
+
 DexScreener → Filters → Scorer → SQLite → Dashboard / Alerts
-➡ The scanner continuously polls DexScreener for new Solana pairs
-➡ Tokens are filtered using minimum risk criteria (liquidity, holders, age, etc.)
-➡ Remaining tokens are scored on a 0–1 scale using momentum and risk metrics
-➡ Results are stored in SQLite for analysis and visualization
-➡ The dashboard reads from the database and displays live results
+
+text
+
+**Process:**
+
+➡ The scanner continuously polls DexScreener for new Solana pairs  
+➡ Tokens are filtered using minimum risk criteria (liquidity, holders, age, etc.)  
+➡ Remaining tokens are scored on a 0–1 scale using momentum and risk metrics  
+➡ Results are stored in SQLite for analysis and visualization  
+➡ The dashboard reads from the database and displays live results  
 ➡ Optional Telegram alerts trigger for higher-scoring tokens
 
-Quick Start
+---
 
-Clone and Set Up
-bash
+## Quick Start
 
+### Clone and Set Up
+
+```bash
 git clone https://github.com/JASecurity/memecoin_scout
 cd memecoin_scout
 python -m venv .venv
-
-Windows:
+Activate Virtual Environment
+Windows (PowerShell):
 
 powershell
 .venv\Scripts\Activate.ps1
+Windows (Command Prompt):
+
+text
+.venv\Scripts\activate.bat
 Linux/Mac:
 
 bash
 source .venv/bin/activate
-Install Dependencies:
-
+Install Dependencies
 bash
 pip install -r requirements.txt
 Configuration
 Edit config.yaml to match your setup and risk tolerance:
 
+text
 min_liq_usd: 5000
 min_vol_5m_usd: 2000
 min_score_to_trade: 0.75
@@ -136,7 +149,7 @@ cd memecoin_scout
 streamlit run dashboard.py
 Windows (Command Prompt):
 
-
+text
 cd memecoin_scout
 .venv\Scripts\activate.bat
 streamlit run dashboard.py
@@ -212,30 +225,19 @@ Roadmap
 Planned or potential extensions:
 
 ➡ Live trading integration (e.g., Jupiter DEX)
-
 ➡ Smarter token classification with richer feature sets
-
 ➡ Multi-chain support (Base, Ethereum, BSC, etc.)
-
 ➡ Backtesting using SQLite history
-
 ➡ Additional alert channels (Discord, Webhooks)
-
 ➡ More advanced risk and position-sizing logic
 
 Why This Project Matters
 ➡ End-to-end system design (async ingestion → storage → UI)
-
 ➡ Practical risk filtering in noisy, adversarial markets
-
 ➡ Operational discipline around configuration and environments
-
 ➡ Use of real live market data instead of static examples
 
 License
-
 MIT — free to fork, extend, and deploy.
 
 Built by JA Security
-Web3 & DeFi Security Projects
-

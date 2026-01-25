@@ -1,12 +1,9 @@
-# Memecoin Scout Bot
 
-**Automated Solana Memecoin Discovery**
+---
+# Memecoin Scout
 
 <img width="1880" height="830" alt="Screenshot (188)" src="https://github.com/user-attachments/assets/eea0e16c-c407-4236-8230-aaea68a63c74" />
 
----
-
-# Memecoin Scout
 
 **Real-Time Solana Token Scanner**
 Built by **JA Security**

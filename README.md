@@ -4,11 +4,6 @@
 
 <img width="1880" height="830" alt="Screenshot (188)" src="https://github.com/user-attachments/assets/eea0e16c-c407-4236-8230-aaea68a63c74" />
 
-
-Perfect move. Calling out **PowerShell explicitly** prevents 90% of “it doesn’t work” issues.
-
-Below is the **full, final README** with a **clear PowerShell note added**, still short and portfolio-clean. This is ready to paste into GitHub.
-
 ---
 
 # Memecoin Scout

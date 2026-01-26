@@ -1,0 +1,24 @@
+# Environment variables
+.env
+*.env
+.env.local
+
+# Database
+*.db
+*.sqlite
+*.csv
+token_logs.csv
+momentum_logs.csv
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log

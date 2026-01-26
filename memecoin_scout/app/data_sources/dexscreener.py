@@ -1,78 +1,144 @@
 import time
+import asyncio
 import httpx
-from typing import List
-from ..schemas import TokenInfo, LiquidityInfo, VolumeInfo, HolderStats
+from typing import List, Optional
 
-DEX_URLS = [
-    # current known working endpoints
-    "https://api.dexscreener.com/latest/dex/tokens/solana",
-    "https://api.dexscreener.com/latest/dex/pairs/solana",
-    "https://api.dexscreener.com/latest/dex/search?q=solana"
-]
+from app.schemas import TokenInfo, LiquidityInfo, VolumeInfo, FiltersConfig
 
-async def fetch_new_listings(max_age_minutes: int = 60) -> List[TokenInfo]:
+
+async def fetch_new_listings(
+    chain: str = "solana",
+    cfg: Optional[FiltersConfig] = None,
+    max_age_minutes: int = 720
+) -> List[TokenInfo]:
     """
-    Try multiple DexScreener endpoints until one works.
-    Normalize into TokenInfo objects.
+    Fetch new token listings from DexScreener using search.
+    Search endpoint returns up to 30 most relevant pairs per query.
+    We search multiple queries to get more coverage.
     """
-    data = None
-    last_error = None
-
-    for url in DEX_URLS:
+    
+    # Use search to find new Solana tokens
+    # Multiple queries to get better coverage (each returns ~30 pairs)
+    search_queries = [
+        "raydium",
+        "orca", 
+        "solana new",
+        "pump.fun",
+    ]
+    
+    all_pairs = []
+    
+    for query in search_queries:
+        url = f"https://api.dexscreener.com/latest/dex/search?q={query}"
+        
         try:
-            async with httpx.AsyncClient(timeout=15) as client:
+            async with httpx.AsyncClient(timeout=30) as client:
                 r = await client.get(url)
                 r.raise_for_status()
                 data = r.json()
-                print(f"[debug] DexScreener endpoint OK: {url}")
-                break
+                
+                pairs = data.get("pairs", [])
+                # Filter for Solana only
+                solana_pairs = [p for p in pairs if p.get("chainId") == "solana"]
+                all_pairs.extend(solana_pairs)
+                
+                print(f"[debug] Found {len(solana_pairs)} Solana pairs for query '{query}'")
+                
+        except httpx.HTTPStatusError as e:
+            print(f"[error] DexScreener HTTP error for '{query}': {e.response.status_code}")
+            continue
         except Exception as e:
-            last_error = e
-            print(f"[warn] DexScreener endpoint failed: {url} ({e})")
+            print(f"[error] DexScreener request failed for '{query}': {e}")
+            continue
+        
+        # Small delay to avoid rate limiting
+        await asyncio.sleep(0.5)
+    
+    # Remove duplicates based on pair address
+    seen_addresses = set()
+    unique_pairs = []
+    for p in all_pairs:
+        pair_address = p.get("pairAddress")
+        if pair_address and pair_address not in seen_addresses:
+            seen_addresses.add(pair_address)
+            unique_pairs.append(p)
+    
+    print(f"[debug] Total unique Solana pairs found: {len(unique_pairs)}")
 
-    if not data:
-        raise last_error or RuntimeError("All DexScreener endpoints failed")
+    if not unique_pairs:
+        print("[warning] No pairs returned from DexScreener")
+        return []
 
-    pairs = data.get("pairs") or data.get("tokens") or []
     now_ms = int(time.time() * 1000)
     tokens: List[TokenInfo] = []
 
-    for p in pairs:
-        created_ms = p.get("pairCreatedAt") or now_ms
-        age_m = max(0, int((now_ms - int(created_ms)) / 1000 / 60))
+    for p in unique_pairs:
+        # Check pair creation time
+        created_ms = p.get("pairCreatedAt")
+        if not created_ms:
+            continue
 
-        liq_usd = 0.0
-        if isinstance(p.get("liquidity"), dict):
-            liq_usd = float(p["liquidity"].get("usd") or 0)
+        # Calculate age in minutes
+        age_m = int((now_ms - int(created_ms)) / 1000 / 60)
+        if age_m > max_age_minutes:
+            continue
 
-        vol = p.get("volume") or {}
-        vol_1h = float(vol.get("h1") or 0)
-        vol_24h = float(vol.get("h24") or 0)
+        # Extract liquidity info
+        liquidity_data = p.get("liquidity", {})
+        liquidity = float(liquidity_data.get("usd", 0))
+        
+        if liquidity <= 0:
+            continue
+
+        # Extract volume and price
+        volume_data = p.get("volume", {})
+        volume_1h = float(volume_data.get("h1", 0))
         price_usd = float(p.get("priceUsd") or 0)
+        fdv_usd = float(p.get("fdv") or 0)
 
-        txns = p.get("txns") or {}
-        h5 = txns.get("h5") or {}
-        trades_5m = int(h5.get("buys") or 0) + int(h5.get("sells") or 0)
+        # Extract transaction data (5 minute window)
+        txns_5m = p.get("txns", {}).get("m5", {})
+        if not txns_5m:
+            txns_5m = p.get("txns", {}).get("h1", {})  # Fallback to 1 hour
+        
+        trades_5m = int(txns_5m.get("buys", 0)) + int(txns_5m.get("sells", 0))
 
-        base = p.get("baseToken") or {}
-        symbol = base.get("symbol") or p.get("info", {}).get("baseSymbol") or "UNKNOWN"
-        address = base.get("address") or p.get("pairAddress") or ""
+        # Extract base token info
+        base = p.get("baseToken", {})
+        symbol = base.get("symbol", "UNKNOWN")
+        address = base.get("address", "")
+        
+        if not address:
+            continue
 
+        # Create token object
         token = TokenInfo(
             symbol=symbol,
-            chain="solana",
+            chain=chain,
             address=address,
             price_usd=price_usd,
-            liquidity=LiquidityInfo(usd=liq_usd, lp_lock_ratio=0.0),
-            volume=VolumeInfo(usd_1h=vol_1h, usd_24h=vol_24h),
-            holders=HolderStats(holder_count=0, top1_pct=0.0, top5_pct=0.0),
+            liquidity=LiquidityInfo(usd=liquidity),
+            volume=VolumeInfo(usd_1h=volume_1h),
             age_minutes=age_m,
-            fdv_usd=float(p.get("fdv") or 0),
-            dex_trades_5m=trades_5m,
+            fdv_usd=fdv_usd,
+            dex_trades_5m=trades_5m
         )
 
-        if age_m <= max_age_minutes:
-            tokens.append(token)
+        # Apply filters if provided
+        if cfg:
+            # Liquidity filter
+            if not (cfg.min_liquidity_usd <= liquidity <= cfg.max_liquidity_usd):
+                continue
+            
+            # Price filter
+            if not (cfg.min_price_usd <= price_usd <= cfg.max_price_usd):
+                continue
 
-    print(f"[debug] number of pairs: {len(tokens)}")
+        tokens.append(token)
+
+    print(f"[debug] {len(tokens)} live {chain} pairs accepted after filtering")
+    
+    # Sort by age (newest first)
+    tokens.sort(key=lambda t: t.age_minutes)
+    
     return tokens

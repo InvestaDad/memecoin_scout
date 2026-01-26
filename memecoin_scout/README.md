@@ -1,59 +1,76 @@
-# MemeCoin Scout — 0.1 (experimental)
 
-> **High risk disclaimer**: This tool surfaces *extremely speculative* meme tokens. Nothing here is financial advice. 
-> Many new tokens are scams or designed to rapidly dump (aka "rug pulls"). **Never invest more than you can afford to lose.**
+# 💎 Memecoin Scout Auto-Trader Bot  
+### 🚀 Solana Real-Time Scanner • Momentum Scorer • Paper & Live Trader
 
-## What it does
-- Watches **newly listed** tokens (sources pluggable), applies **hard-risk filters**, then **scores** survivors on momentum + social/on-chain signals.
-- (Optional) Uses an LLM to summarize risks and produce a **structured verdict** for each candidate.
-- Can push alerts to a **Telegram** channel/chat (optional).
+![Python](https://img.shields.io/badge/Python-3.13-blue?logo=python)
+![Streamlit](https://img.shields.io/badge/Frontend-Streamlit-orange?logo=streamlit)
+![Solana](https://img.shields.io/badge/Chain-Solana-purple?logo=solana)
+![Status](https://img.shields.io/badge/Mode-Paper%20Trading-green)
+![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
-## Quick start (Demo mode — no API keys)
-```bash
-python -m app.main --demo
-```
-This loads `app/demo/sample_new_listings.json`, runs filters + scoring, and prints a ranked table.
+---
 
-## Setup
-1. Python 3.10+ recommended.
-2. Create a virtualenv and install deps:
-```bash
-python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
-```
-3. Copy config and tweak thresholds:
-```bash
-cp config.example.yaml config.yaml
-```
-4. (Optional) Set environment variables if you plan to use an LLM or Telegram:
-- `LLM_PROVIDER` (e.g., `"openai"` or `"openrouter"`)
-- `LLM_API_KEY`
-- `TELEGRAM_BOT_TOKEN`
-- `TELEGRAM_CHAT_ID`
+### ⚡ Overview
 
-> ⚠️ The data-source modules include **clearly marked TODOs** where you can connect real feeds such as DexScreener, GeckoTerminal, Birdeye, pump.fun, DEXTools, Etherscan/Solscan APIs. Endpoints change; consult each service's documentation.
+**Memecoin Scout Auto-Trader** is an intelligent, fully automated trading bot that scans **new Solana tokens in real time**, scores them using liquidity, momentum, and risk signals, and executes **paper or live trades** based on custom strategy rules.
 
-## How it works
-- **Data sources** ingest raw new listings → normalized `TokenInfo` objects.
-- **Hard filters** reject obvious rug/sybil/illicit patterns (honeypot flags, insane taxes, owner powers, etc.).
-- **Scorer** assigns a 0–100 **Opportunity Score** from momentum/liquidity/holder distribution/social traction.
-- **LLM (optional)** compresses everything into a JSON verdict: `watchlist | speculative | avoid` with a short rationale.
-- **Alerting (optional)** Telegram push for top-N.
-- **Config** controls thresholds per chain (Solana/EVM/BSC/etc.).
+The goal:  
+> Detect early gems before they trend, simulate (or execute) quick buy/sell trades, and compound small wins into larger growth — safely and transparently.
 
-## Caution & guardrails
-- Consider **paper trading/backtests** first; past performance ≠ future returns.
-- Always manually verify contract code, LP lock/burn, mint authorities, taxes, and tradeability (no honeypot) *yourself* before buying.
-- Treat LLM outputs as **summaries**, not truths.
+It combines:
+- 🔍 **Real-time token detection** from DexScreener  
+- 🧠 **Smart scoring** via Birdeye data and momentum metrics  
+- 💾 **SQLite logging** for trades and tokens  
+- 🤖 **Paper trading** with optional live execution  
+- 📈 **Streamlit dashboard** for live visualization  
+- 📱 **Telegram alerts** for instant notifications  
 
-## Commands
-```bash
-# Demo
-python -m app.main --demo
+---
 
-# Live (after wiring sources + config.yaml)
-python -m app.main --live
+## 🧩 Core Features
 
-# Send alerts (requires Telegram setup)
-python -m app.main --demo --alerts
-```
+| Feature | Description |
+|----------|--------------|
+| 🧭 **Live Token Scanning** | Continuously pulls new Solana pairs from DexScreener using async requests. |
+| 🧠 **Intelligent Scoring** | Combines liquidity, volume, age, holders, and risk signals to rank new tokens. |
+| 🚫 **Rug Filter Engine** | Filters out unverified or high-risk contracts and fake liquidity pools. |
+| 💾 **SQLite Data Store** | Logs every discovered token, trade, and position for full transparency. |
+| 🧮 **Risk Manager** | Dynamically sizes positions and enforces per-trade and daily loss limits. |
+| 🧑‍💻 **Paper & Live Modes** | Simulate trades safely or execute via Jupiter Aggregator API (optional). |
+| 💬 **Telegram Alerts** | Sends trade entries/exits and token discoveries directly to your Telegram bot. |
+| 📊 **Streamlit Dashboard** | Visualize live trades, token data, and scores in your browser. |
+| 🛑 **Kill Switch** | Create a `KILL.TXT` file at any time to instantly stop trading. |
+
+---
+
+## ⚙️ Tech Stack
+
+| Component | Technology |
+|------------|-------------|
+| **Language** | Python 3.13 |
+| **APIs** | DexScreener / Birdeye / Jupiter (optional) |
+| **Frontend** | Streamlit + Plotly |
+| **Storage** | SQLite via `app/storage/db.py` |
+| **Alerts** | Telegram Bot API |
+| **Data Handling** | Pandas, HTTPX, Requests |
+| **Deployment** | Local / Streamlit Cloud / VPS |
+| **Version Control** | Git + GitHub |
+
+---
+
+## 🏗️ Project Structure
+memecoin_scout/
+├── app/
+│ ├── alerting/ # Telegram alerts
+│ ├── data_sources/ # DexScreener + Birdeye integrations
+│ ├── execution/ # Jupiter executor (stub / live)
+│ ├── storage/ # SQLite database + persistence
+│ ├── trading/ # Strategy, risk, broker, safety, guard
+│ ├── main.py # Paper trading loop
+│ ├── settings.py # Environment configuration
+│ └── init.py
+├── dashboard_trades.py # Streamlit dashboard
+├── requirements.txt # Dependencies
+└── README.md # (this file)
+
+

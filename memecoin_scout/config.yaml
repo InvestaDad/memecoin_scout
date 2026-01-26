@@ -1,17 +1,56 @@
 global:
-  chains: ["solana"]              # still focused on Solana
-  min_liquidity_usd: 50           # catch super fresh pools (was 500)
-  max_fdv_usd: 100000000          # allow up to $100M FDV
-  min_holders: 0                  # brand new tokens okay
-  min_age_minutes: 0              # include tokens minted seconds ago
-  max_age_minutes: 480            # up to 8 hours old
-  max_buy_tax_bps: 0              # no tax coins only
-  max_sell_tax_bps: 0
-  max_top1_holder_pct: 100        # ignore whale dominance (for discovery)
-  max_top5_holder_pct: 100
+  chains: ["solana"]
+  
+filters:
+  # LIQUIDITY FILTERS - Catch early but avoid rugs
+  min_liquidity_usd: 1500
+  max_liquidity_usd: 1000000
+  min_price_usd: 0.0000001
+  max_price_usd: 0.50
+  
+  # HOLDER FILTERS - Community strength
+  min_holders: 10
+  
+  # AGE FILTERS - Fresh launches
+  min_age_minutes: 5
+  max_age_minutes: 1440
+  
+  # TAX FILTERS - Avoid honeypots
+  max_buy_tax_bps: 1000
+  max_sell_tax_bps: 1000
+  
+  # HOLDER CONCENTRATION - Avoid whale manipulation
+  max_top1_holder_pct: 30
+  max_top5_holder_pct: 60
+  
+  # SECURITY CHECKS - RELAXED for testing
   require_contract_verified: false
   require_owner_renounced_or_timelock: false
-  require_mint_authority_revoked: false   # disable safety
-  min_lp_lock_ratio: 0.0          # allow even unlocked LPs
-  min_dex_trades_5m: 0            # even if no trades yet
-  min_volume_usd_1h: 0            # even if 0 volume
+  require_mint_authority_revoked: false
+  
+  # ACTIVITY FILTERS - RELAXED to see tokens
+  min_dex_trades_5m: 0
+  min_volume_usd_1h: 0
+  
+  # FDV Filter
+  max_fdv_usd: 100000000
+
+data_sources:
+  birdeye:
+    api_key: "${BIRDEYE_API_KEY}"
+    multi_price_endpoint: "https://public-api.birdeye.so/defi/multi_price"
+    enabled: true
+  dexscreener:
+    enabled: true
+  coingecko:
+    enabled: true
+    api_key: null
+
+ethereum:
+  enabled: true
+  alchemy_url: "${ALCHEMY_API_KEY}"
+  etherscan_api_key: "${ETHERSCAN_API_KEY}"
+
+goplus:
+  enabled: true
+  base_url: "https://api.gopluslabs.io/api/v1"

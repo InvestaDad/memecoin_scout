@@ -1,0 +1,46 @@
+total 72K
+-rw-r--r-- 1 kali kali  34K Oct  8 18:02 body_home.txt
+-rw-r--r-- 1 kali kali  428 Oct  8 18:02 evidence_checksums.txt
+-rw-r--r-- 1 kali kali  716 Oct  8 18:02 full_http_home.txt
+-rw-r--r-- 1 kali kali 1.1K Oct  8 18:02 header_home.txt
+-rw-r--r-- 1 kali kali 1.9K Oct  8 17:52 login_nonexistent.txt
+-rw-r--r-- 1 kali kali 6.4K Oct  8 17:36 sweep_evidence_20251008T213649Z.tgz
+-rw-r--r-- 1 kali kali 5.8K Oct  8 18:02 sweep_evidence_20251008T220248Z.tgz
+-rw-r--r-- 1 kali kali 2.6K Oct  8 17:36 tls_info.txt
+                                                                                                                                                                                                                                           
+┌──(kali㉿kali)-[~/sweedpos_evidence]
+└─$ xdg-open ~/sweedpos_evidence
+
+                                                                                                                                                                                                                                           
+┌──(kali㉿kali)-[~/sweedpos_evidence]
+└─$ mkdir -p ~/sweedpos_evidence && cd ~/sweedpos_evidence                                             
+ls -lh
+
+total 72K
+-rw-r--r-- 1 kali kali  34K Oct  8 18:02 body_home.txt
+-rw-r--r-- 1 kali kali  428 Oct  8 18:02 evidence_checksums.txt
+-rw-r--r-- 1 kali kali  716 Oct  8 18:02 full_http_home.txt
+-rw-r--r-- 1 kali kali 1.1K Oct  8 18:02 header_home.txt
+-rw-r--r-- 1 kali kali 1.9K Oct  8 17:52 login_nonexistent.txt
+-rw-r--r-- 1 kali kali 6.4K Oct  8 17:36 sweep_evidence_20251008T213649Z.tgz
+-rw-r--r-- 1 kali kali 5.8K Oct  8 18:02 sweep_evidence_20251008T220248Z.tgz
+-rw-r--r-- 1 kali kali 2.6K Oct  8 17:36 tls_info.txt
+                                                                                                                                                                                                                                           
+┌──(kali㉿kali)-[~/sweedpos_evidence]
+└─$ curl -I https://dev.sweedpos.com/
+
+HTTP/2 200 
+date: Wed, 08 Oct 2025 22:11:55 GMT
+content-type: text/html; charset=utf-8
+cf-ray: 98b8fa0d4b8bf5f7-EWR
+last-modified: Wed, 08 Oct 2025 16:14:22 GMT
+cache-control: no-store
+pragma: no-cache
+strict-transport-security: max-age=63072000; includeSubdomains; preload
+x-frame-options: SAMEORIGIN
+x-content-type-options: nosniff
+x-xss-protection: 1; mode=block
+cf-cache-status: BYPASS
+set-cookie: __cf_bm=_QbbgzhK5AQtkkGY7dF7Dd1nrEam8AOBDIByZsxGRIg-1759961515-1.0.1.1-BiLKIz35MRsJ9RVGe6ekBHCIY234kIKxlUpSKe.sWR00TY_H5KscUPJt17yqOqnGBEOt49jEIyUY6a998VgrZ6VlgCbczpw8A33OaAg43uM; path=/; expires=Wed, 08-Oct-25 22:41:55 GMT; domain=.sweedpos.com; HttpOnly; Secure; SameSite=None
+server: cloudflare
+

@@ -1,23 +1,20 @@
 from dotenv import load_dotenv
-import os
 load_dotenv()
-
 
 import asyncio
 import yaml
 import re
 from pathlib import Path
 from datetime import datetime, timezone
-from data_sources.dexscreener import fetch_new_listings
-from schemas import TokenInfo, LiquidityInfo, VolumeInfo, FiltersConfig
-from filters import filter_tokens
-from scorer import score_tokens
-from alerting.telegram_alert import send_telegram_alert
-from logger import log_token
-from momentum_tracker import detect_momentum_spike
-from coingecko_client import CoinGeckoClient
-from ethereum_scanner import scan_ethereum_contract
-
+from app.data_sources.dexscreener import fetch_new_listings
+from app.schemas import TokenInfo, LiquidityInfo, VolumeInfo, FiltersConfig
+from app.filters import filter_tokens
+from app.scorer import score_tokens
+from app.alerting.telegram_alert import send_telegram_alert
+from app.logger import log_token
+from app.momentum_tracker import detect_momentum_spike
+from app.coingecko_client import CoinGeckoClient
+from app.ethereum_scanner import scan_ethereum_contract
 
 
 

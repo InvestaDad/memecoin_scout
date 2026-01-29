@@ -1,0 +1,18 @@
+{
+  "name": "block-boy-security-console",
+  "version": "2.0.0",
+  "type": "module",
+  "description": "Solana memecoin scanner with AI agent trading",
+  "scripts": {
+    "agent:test": "node app/agent_config.js",
+    "bot:start": "python app/main.py --live"
+  },
+  "dependencies": {
+    "solana-agent-kit": "^2.0.10",
+    "@solana-agent-kit/plugin-token": "^2.0.9",
+    "@solana-agent-kit/plugin-misc": "^2.0.6",
+    "@solana/web3.js": "^1.95.0",
+    "bs58": "^5.0.0",
+    "dotenv": "^16.3.1"
+  }
+}

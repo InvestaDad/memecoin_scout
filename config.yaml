@@ -3,17 +3,17 @@ global:
   
 filters:
   # LIQUIDITY FILTERS - Catch early but avoid rugs
-  min_liquidity_usd: 1500
+  min_liquidity_usd: 2000
   max_liquidity_usd: 1000000
   min_price_usd: 0.0000001
   max_price_usd: 0.50
   
   # HOLDER FILTERS - Community strength
-  min_holders: 10
+  min_holders: 0
   
-  # AGE FILTERS - Fresh launches
+  # AGE FILTERS - 14 day window to catch pre-pump phase
   min_age_minutes: 5
-  max_age_minutes: 1440
+  max_age_minutes: 20160
   
   # TAX FILTERS - Avoid honeypots
   max_buy_tax_bps: 1000
@@ -28,12 +28,20 @@ filters:
   require_owner_renounced_or_timelock: false
   require_mint_authority_revoked: false
   
-  # ACTIVITY FILTERS - RELAXED to see tokens
-  min_dex_trades_5m: 0
-  min_volume_usd_1h: 0
+  # ACTIVITY FILTERS - Set minimum thresholds
+  min_dex_trades_5m: 5
+  min_volume_usd_1h: 1000
   
   # FDV Filter
   max_fdv_usd: 100000000
+
+
+scoring:
+  min_score_to_alert: 40
+
+
+scan_interval_seconds: 60
+
 
 data_sources:
   birdeye:
@@ -46,11 +54,19 @@ data_sources:
     enabled: true
     api_key: null
 
+
 ethereum:
   enabled: true
   alchemy_url: "${ALCHEMY_API_KEY}"
   etherscan_api_key: "${ETHERSCAN_API_KEY}"
 
+
 goplus:
   enabled: true
   base_url: "https://api.gopluslabs.io/api/v1"
+
+
+telegram:
+  enabled: false
+  bot_token: "${TELEGRAM_BOT_TOKEN}"
+  chat_id: "${TELEGRAM_CHAT_ID}"

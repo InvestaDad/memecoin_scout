@@ -3,7 +3,7 @@ import asyncio
 import httpx
 from typing import List, Optional
 
-from app.schemas import TokenInfo, LiquidityInfo, VolumeInfo, FiltersConfig
+from ..schemas import TokenInfo, LiquidityInfo, VolumeInfo, FiltersConfig
 
 
 async def fetch_new_listings(

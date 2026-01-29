@@ -1,4 +1,5 @@
-from app.schemas import TokenInfo
+from ..schemas import TokenInfo
+
 
 def score_tokens(token: TokenInfo):
     """

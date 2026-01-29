@@ -3,15 +3,13 @@
 
 <img width="1889" height="837" alt="gameboy console style" src="https://github.com/user-attachments/assets/5659406a-7bad-485c-aad2-7e3ccbe08309" />
 
----
-
 ## Overview
 
-**Block Boy Security Console** is a real-time scanner for newly launched **Solana tokens** with integrated **Ethereum smart contract security analysis**.
+**Block Boy Security Console** is a real-time scanner for newly launched **Solana tokens**.
 
 It detects new trading pairs, applies risk filters, scores momentum and security risks, and surfaces high-signal candidates through a lightweight dashboard.
 
-Designed as a **multi-chain research and monitoring system**, it provides live on-chain market insights and serves as a foundation for **automation, trading, and security research**.
+Designed as a **Solana-focused research and monitoring system**, it provides live on-chain market insights and serves as a foundation for **automation, trading, and security research**.
 
 ---
 
@@ -24,14 +22,6 @@ Designed as a **multi-chain research and monitoring system**, it provides live o
 * Liquidity and risk-based filtering
 * Momentum scoring: liquidity, volume, age, holders
 * Tracks processed tokens to avoid duplicates
-
-### Ethereum Smart Contract Security
-
-* Security scanning via **GoPlus Security API**
-* Honeypot detection & buy/sell tax analysis
-* Risk scoring system (0–100 scale)
-* Detects mintable tokens, hidden owners, suspicious patterns
-* Integrates **Alchemy API** for Ethereum mainnet access
 
 ### Data Management & Alerts
 
@@ -46,7 +36,7 @@ Designed as a **multi-chain research and monitoring system**, it provides live o
 
 ```
 Python · Asyncio · Streamlit · SQLite · Pandas
-DexScreener API · GoPlus Security API · Alchemy API · Telegram Bot API
+DexScreener API · Solana RPC · Telegram Bot API
 ```
 
 ---
@@ -55,11 +45,9 @@ DexScreener API · GoPlus Security API · Alchemy API · Telegram Bot API
 
 ```
 DexScreener → Filters → Scoring → SQLite → Dashboard / Alerts
-                    ↓
-        GoPlus Security (Ethereum)
 ```
 
-The scanner continuously ingests live data from Solana & Ethereum, filters risks, scores tokens, stores results, and exposes them via a live dashboard.
+The scanner continuously ingests live Solana market data, filters risks, scores tokens, stores results, and exposes them via a live dashboard.
 
 ---
 
@@ -75,17 +63,6 @@ The scanner continuously ingests live data from Solana & Ethereum, filters risks
 | Token Age         | 5–1440 minutes       |
 | Price Range       | Low-priced memecoins |
 | Tax/Honeypot      | Detection enabled    |
-
-### Ethereum Security Checks
-
-| Check                 | Description                            |
-| --------------------- | -------------------------------------- |
-| Honeypot Detection    | Detect malicious contracts             |
-| Buy/Sell Tax Analysis | Flags high tax tokens                  |
-| Holder Distribution   | Detects abnormal holder patterns       |
-| Mintable Token        | Detects contracts that can mint tokens |
-| Hidden Owner          | Checks for non-transparent ownership   |
-| Verification Status   | Confirms verified contract on Ethereum |
 
 ---
 
@@ -121,13 +98,6 @@ streamlit run app/dashboard.py
 * Streamlit will provide a local URL (e.g., `http://localhost:8501`)
 * Open in browser for live dashboard
 
-### Testing Ethereum Scanner (Optional)
-
-```powershell
-cd C:\Users\joeya\Downloads\memecoin_scout\memecoin_scout\app
-python -c "from ethereum_scanner import scan_ethereum_contract; import json; print(json.dumps(scan_ethereum_contract('0xdac17f958d2ee523a2206206994597c13d831ec7'), indent=2))"
-```
-
 ---
 
 ## Configuration
@@ -139,13 +109,11 @@ python -c "from ethereum_scanner import scan_ethereum_contract; import json; pri
 * Scan intervals
 * Risk score thresholds
 * Telegram alert settings
-* Ethereum/Solana chain priorities
 
 **`.env` Environment Variables**
 
 ```
-ALCHEMY_URL=your_alchemy_url
-GOPLUS_API_KEY=your_goplus_key
+SOLANA_RPC_URL=your_rpc_url
 TELEGRAM_BOT_TOKEN=your_telegram_token
 TELEGRAM_CHAT_ID=your_chat_id
 ```
@@ -155,12 +123,12 @@ TELEGRAM_CHAT_ID=your_chat_id
 ## Why It Matters
 
 * **Async system design** for real-time monitoring
-* Multi-chain security analysis (Solana + Ethereum)
-* Practical risk filtering in adversarial markets
+* Solana-native token discovery and analysis
+* Practical risk filtering in adversarial memecoin markets
 * Live data-driven insights
 * Clean separation: scanning → scoring → storage → UI
 * Demonstrates real-world **Web3 security skills**
-* Foundation for automated trading strategies
+* Foundation for automated Solana trading strategies
 
 ---
 
@@ -168,22 +136,22 @@ TELEGRAM_CHAT_ID=your_chat_id
 
 **Current Phase: Risk Scoring Optimization**
 
-* Fine-tune Ethereum scoring to reduce false positives
-* Expand whitelist for legitimate contracts
-* Advanced honeypot detection
+* Reduce false positives on new Solana launches
+* Improve liquidity and holder-based heuristics
+* Advanced honeypot and rug-risk detection
 
 **Next Phase: Web Dashboard**
 
-* Unified Solana + Ethereum interface
-* Real-time risk visualization
-* Historical data analysis
+* Enhanced real-time visualizations
+* Historical trend analysis
+* Token comparison tools
 
 **Future Enhancements**
 
-* Additional EVM chains (BSC, Polygon, Arbitrum)
-* Wallet tracking and analysis
+* Solana wallet tracking and behavior analysis
 * Automated alert optimization
 * DEX aggregator integration
+* Strategy backtesting on historical Solana data
 
 ---
 
@@ -194,7 +162,3 @@ MIT License
 ---
 
 **Built by JA Security | Web3 & DeFi Security Projects**
-
----
-
-
